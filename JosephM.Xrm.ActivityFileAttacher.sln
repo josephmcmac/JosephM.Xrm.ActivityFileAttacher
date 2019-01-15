@@ -3,18 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JosephM.Xrm.ActivityFileAttacher.Plugins", "JosephM.Xrm.ActivityFileAttacher.Plugins\JosephM.Xrm.ActivityFileAttacher.Plugins.csproj", "{2CC0419A-9CDF-46AF-8F7B-4839DD5F39B5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JosephM.Xrm.ActivityFileAttacher.Plugins.Test", "JosephM.Xrm.ActivityFileAttacher.Plugins.Test\JosephM.Xrm.ActivityFileAttacher.Plugins.Test.csproj", "{F59E6AEF-2023-472F-988B-23B5FBBE3322}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JosephM.Xrm.ActivityFileAttacher.WebResources", "JosephM.Xrm.ActivityFileAttacher.WebResources\JosephM.Xrm.ActivityFileAttacher.WebResources.csproj", "{8BC56C3D-4289-4507-B0D9-321DF90F3E1E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JosephM.Xrm.ActivityFileAttacher.Console", "JosephM.Xrm.ActivityFileAttacher.Console\JosephM.Xrm.ActivityFileAttacher.Console.csproj", "{147ACA64-2605-4157-9AED-B512B3E327CC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xrm.Vsix", "Xrm.Vsix", "{AC3B03CE-3BB3-4DFE-A759-667C760957F6}"
 	ProjectSection(SolutionItems) = preProject
 		Xrm.Vsix\joseph.mcgregor-macd.solution.xrmconnection = Xrm.Vsix\joseph.mcgregor-macd.solution.xrmconnection
 		Xrm.Vsix\joseph.mcgregor-macd.xrmpackage.xrmsettings = Xrm.Vsix\joseph.mcgregor-macd.xrmpackage.xrmsettings
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Releases", "Releases", "{CB22ED85-B434-4BCC-B2A2-82225BE9A440}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0.0.0", "1.0.0.0", "{0F3832B7-BBE3-4DDD-84E3-915C220D4145}"
+	ProjectSection(SolutionItems) = preProject
+		Releases\1.0.0.0\JosephMcGregorActivityFileAttacher_1_0_0_0.zip = Releases\1.0.0.0\JosephMcGregorActivityFileAttacher_1_0_0_0.zip
 	EndProjectSection
 EndProject
 Global
@@ -23,25 +24,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CC0419A-9CDF-46AF-8F7B-4839DD5F39B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CC0419A-9CDF-46AF-8F7B-4839DD5F39B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CC0419A-9CDF-46AF-8F7B-4839DD5F39B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CC0419A-9CDF-46AF-8F7B-4839DD5F39B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F59E6AEF-2023-472F-988B-23B5FBBE3322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F59E6AEF-2023-472F-988B-23B5FBBE3322}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F59E6AEF-2023-472F-988B-23B5FBBE3322}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F59E6AEF-2023-472F-988B-23B5FBBE3322}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8BC56C3D-4289-4507-B0D9-321DF90F3E1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8BC56C3D-4289-4507-B0D9-321DF90F3E1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BC56C3D-4289-4507-B0D9-321DF90F3E1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BC56C3D-4289-4507-B0D9-321DF90F3E1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{147ACA64-2605-4157-9AED-B512B3E327CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{147ACA64-2605-4157-9AED-B512B3E327CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{147ACA64-2605-4157-9AED-B512B3E327CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{147ACA64-2605-4157-9AED-B512B3E327CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0F3832B7-BBE3-4DDD-84E3-915C220D4145} = {CB22ED85-B434-4BCC-B2A2-82225BE9A440}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE91A4B2-2E75-4023-808E-B0FBF453B60E}

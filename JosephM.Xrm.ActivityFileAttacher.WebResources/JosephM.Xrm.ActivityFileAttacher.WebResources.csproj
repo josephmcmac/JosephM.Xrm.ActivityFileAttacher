@@ -43,10 +43,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="jmcg_afa_activityfileattacher.html" />
     <Content Include="jmcg_afa_jquery.js" />
-    <Content Include="jmcg_afa_pageutility.js" />
     <Content Include="jmcg_afa_webapiutility.js" />
-    <Content Include="jmcg_afa_webserviceutility.js" />
+    <Content Include="jmcg_afa_webresourceutility.js" />
+    <Content Include="jmcg_afa_loading.gif" />
+    <Content Include="jmcg_afa_configuration.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

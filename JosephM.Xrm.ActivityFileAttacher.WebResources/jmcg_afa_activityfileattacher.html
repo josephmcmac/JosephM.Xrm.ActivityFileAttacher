@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="../ClientGlobalContext.js.aspx"></script>
+    <script src="jmcg_afa_jquery.js"></script>
+    <script src="jmcg_afa_webapiutility.js"></script>
+    <script src="jmcg_afa_webresourceutility.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        .dropzone {
+            border: 2px dashed #ccc;
+            width: auto;
+            height: 110px;
+            padding: 10px;
+        }
+
+        .files {
+            overflow: auto;
+            height: 80px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            $(".dropzone").height(window.innerHeight - 34);
+            $(".files").height(window.innerHeight - 74);
+            var loadFiles = function (files) {
+                if (files != null) {
+                    var i = 0;
+                    while (i < files.length) {
+                        var fileReader = new FileReader();
+                        fileReader.onload = (function (file) {
+                            return function (event) {
+                                // Preview
+                                filename = file.name;
+                                image_data = event.target.result;
+
+                                attachingFiles.push({ filename: filename, content: image_data.substr(image_data.indexOf("base64,") + 7) });
+
+                                $("#files").append("<li>" + filename + "</li>");
+                            };
+                        })(files[i]);
+
+                        fileReader.readAsDataURL(files[i]);
+                        i++;
+                    }
+                }
+            }
+
+            var attachingFiles = new Array();
+
+            var filename = '';
+            var image_data = '';
+
+            $.event.props.push('dataTransfer');
+            $('.dropzone').on({
+                dragover: function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $('.dropzone').css('background-color', 'lightBlue');
+                },
+                dragleave: function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $('.dropzone').css('background-color', 'white');
+                },
+                drop: function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $('.dropzone').css('background-color', 'white');
+                    loadFiles(e.dataTransfer.files);
+                }
+            });
+
+            var handleFileSelect = function (evt) {
+                loadFiles(evt.target.files);
+            };
+            $('#btnAttach').on("click", function () {
+                var recordId = activityFileAttacherWebResourceUtility.getParentFormId();
+                var entityType = activityFileAttacherWebResourceUtility.getParentFormEntityType();
+                if (recordId == null || recordId == "" || recordId == "00000000-0000-0000-0000-000000000000") {
+                    activityFileAttacherWebResourceUtility.ParentFormPopupMessage("Please save the record before attaching files");
+                }
+                else if (attachingFiles.length == 0) {
+                    activityFileAttacherWebResourceUtility.ParentFormPopupMessage("Please select the files to attach");
+                }
+                else if (entityType == null) {
+                    activityFileAttacherWebResourceUtility.ParentFormPopupMessage("Error getting parent form entity type");
+                }
+                else {
+                    $('.dropzone').hide();
+                    $('#processing').show();
+                    var processI = function (i) {
+                        if (i == attachingFiles.length) {
+                            activityFileAttacherWebResourceUtility.refreshGridOnParentForm("attachmentsGrid");
+                            attachingFiles = new Array();
+                            $("#files").html("");
+                            $('#processing').hide();
+                            $('.dropzone').show();
+                            return;
+                        }
+
+                        var fields = [
+                            new activityFileAttacherWebApiUtility.FieldValue("objectid_" + entityType + "@odata.bind", "/" + entityType + "s(" + recordId.replace('{', '').replace('}', '') + ")"),
+                            new activityFileAttacherWebApiUtility.FieldValue("subject", attachingFiles[i].filename),
+                            new activityFileAttacherWebApiUtility.FieldValue("filename", attachingFiles[i].filename),
+                            new activityFileAttacherWebApiUtility.FieldValue("body", attachingFiles[i].content),
+                            new activityFileAttacherWebApiUtility.FieldValue("objecttypecode", entityType)
+                            
+                        ];
+                        activityFileAttacherWebApiUtility.create("activitymimeattachments", fields, function () {
+                            processI(i + 1);
+                        }, function (err) {
+                            console.log(err);
+                            var message = err.message;
+                            if (message == null)
+                                message = err;
+                            activityFileAttacherWebResourceUtility.ParentFormPopupMessage("Error attaching " + attachingFiles[i].filename + ": " + message);
+                            processI(i + 1);
+                        });
+                    }
+
+                    processI(0);
+                }
+
+            });
+            document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+        });
+    </script>
+</head>
+<body>
+    <div class="dropzone">
+        <div>
+                <div style="float: left">
+                    <form enctype="multipart/form-data">
+                        <input type="button" value="Browse" onclick="document.getElementById('upload').click();" />
+                        <input class="button" id="upload" type=file name="files[]" multiple style="display: none;" />
+                    </form>
+                </div>
+                <div style="float: left">
+                    &nbsp;or drop files here and&nbsp;
+                </div>
+                <button id="btnAttach">Attach</button>
+        </div>
+        <ul class="files" id="files"></ul>
+    </div>
+    <div id="processing" style="display: none">
+        <p style='text-align: center;'>
+            <img src="jmcg_afa_loading.gif" />
+        </p>
+        <p id="message" style='text-align: center;'>
+            Please Wait While Loading
+        </p>
+    </div>
+</body>
+</html>
