@@ -1,0 +1,1 @@
+JosephM.Xrm.ActivityFileAttacher.Console.exe -xrmsetting
